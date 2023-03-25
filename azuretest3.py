@@ -26,7 +26,7 @@ def getAzureInstancePrice(instance_name,location):
     json_result=json.loads(response.text)
 
     for item in json_result['Items']:
-        if 'Spot' in item['meterName'] or 'Low Priority' in item['meterName']:
+        if 'Spot' in item['meterName'] or 'Low Priority' in item['meterName'] or "Virtual Machines" not in item['productName']:
             continue
         print(instance_name+" ",item['retailPrice'])
 
@@ -46,5 +46,5 @@ def getAzureInstancePrice(instance_name,location):
 
 instance_types=azure_instance_types('westus2')
 for i, r in enumerate(instance_types):
-   getAzureInstancePrice(instance_name= r.name, location='westus2')
-   #print(r.name+" ")
+   #getAzureInstancePrice(instance_name= r.name, location='westus2')
+   print(r)
