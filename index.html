@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cloud Provider Advisor</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>Cloud Provider Advisor</h1>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<!--<li><a href="#">Pricing</a></li>-->
+				
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Contact</a></li>
+				<li><a href="#">Login</a></li>
+				<li><a href="#">Sign Up</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<main>
+		<section>
+			<h2>Get the Lowest Price for Your Cloud Instance</h2>
+			
+			<form id="myForm">
+
+				<label for="instanceType">Instance Type:</label>
+				<select name="instanceType" id="instanceType">
+					<option value="General Purpose">General Purpose</option>
+					<option value="Compute Optimized">Compute Optimized</option>
+					<option value="Memory Optimized">Memory Optimized</option>
+					<option value="Accelerated Computing">Accelerated Computing</option>
+					<option value="Storage Optimized">Storage Optimized</option>
+				</select>
+
+				<label for="vcpu">vCPU:</label>
+				<input type="number" id="vcpu" name="cpu" required><br>
+	
+				<label for="memory">Memory (in GB):</label>
+				<input type="number" id="memory" name="memory" required><br>
+	
+				<label for="storage">Storage (in GB):</label>
+				<input type="number" id="storage" name="storage" required><br>
+	
+
+				<label for="region">Region:</label>
+				<select id="region" name="region">
+					<option value="North America -> US East (N. Virginia) -> us-east-1">North America -> US East (N. Virginia) -> us-east-1</option>
+					<option value="North America -> US East (Ohio) -> us-east-2">North America -> US East (Ohio) -> us-east-2</option>
+					<option value="North America -> US West (N. California) -> us-west-1">North America -> US West (N. California) -> us-west-1</option>
+					<option value="North America -> US West (Oregon) -> us-west-2">North America -> US West (Oregon) -> us-west-2</option>
+					<option value="North America -> Canada (Central) -> ca-central-1">North America -> Canada (Central) -> ca-central-1</option>
+					<option value="North America -> AWS GovCloud (US-East) -> us-gov-east-1">North America -> AWS GovCloud (US-East) -> us-gov-east-1</option>
+					<option value="North America -> AWS GovCloud (US-West) -> us-gov-west-1">North America -> AWS GovCloud (US-West) -> us-gov-west-1</option>
+					<option value="Africa -> Africa(Cape Town) -> af-south-1">Africa -> Africa(Cape Town) -> af-south-1</option>
+					<option value="Asia Pacific -> Asia Pacific (Hong Kong) -> ap-east-1">Asia Pacific -> Asia Pacific (Hong Kong) -> ap-east-1</option>
+					<option value="Asia Pacific -> Asia Pacific (Hyderabad) -> ap-south-2">Asia Pacific -> Asia Pacific (Hyderabad) -> ap-south-2</option>
+					<option value="Asia Pacific -> Asia Pacific (Jakarta) -> ap-southeast-3">Asia Pacific -> Asia Pacific (Jakarta) -> ap-southeast-3</option>
+					<option value="Asia Pacific -> Asia Pacific (Melbourne) -> ap-southeast-4">Asia Pacific -> Asia Pacific (Melbourne) -> ap-southeast-4</option>
+					<option value="Asia Pacific -> Asia Pacific (Mumbai) -> ap-south-1">Asia Pacific -> Asia Pacific (Mumbai) -> ap-south-1</option>
+					<option value="Asia Pacific -> Asia Pacific (Osaka) -> ap-northeast-3">Asia Pacific -> Asia Pacific (Osaka) -> ap-northeast-3</option>
+					<option value="Asia Pacific -> Asia Pacific (Seoul) -> ap-northeast-2">Asia Pacific -> Asia Pacific (Seoul) -> ap-northeast-2</option>
+					<option value="Asia Pacific -> Asia Pacific (Singapore) -> ap-southeast-1">Asia Pacific -> Asia Pacific (Singapore) -> ap-southeast-1</option>
+					<option value="Asia Pacific -> Asia Pacific (Sydeny) -> ap-southeast-2">Asia Pacific -> Asia Pacific (Sydeny) -> ap-southeast-2</option>
+					<option value="Asia Pacific -> Asia Pacific (Tokyo) -> ap-northeast-1">Asia Pacific -> Asia Pacific (Tokyo) -> ap-northeast-1</option>
+					<option value="Europe -> Europe (Frankfurt) -> eu-central-1">Europe -> Europe (Frankfurt) -> eu-central-1</option>
+					<option value="Europe -> Europe (Ireland) -> eu-west-1">Europe -> Europe (Ireland) -> eu-west-1</option>
+					<option value="Europe -> Europe (London) -> eu-west-2">Europe -> Europe (London) -> eu-west-2</option>
+					<option value="Europe -> Europe (Milan) -> eu-south-1">Europe -> Europe (Milan) -> eu-south-1</option>
+					<option value="Europe -> Europe (Paris) -> eu-west-3">Europe -> Europe (Paris) -> eu-west-3</option>
+					<option value="Europe -> Europe (Spain) -> eu-south-2">Europe -> Europe (Spain) -> eu-south-2</option>
+					<option value="Europe -> Europe (Stokholm) -> eu-north-1">Europe -> Europe (Stokholm) -> eu-north-1</option>
+					<option value="Europe -> Europe (Zurich) -> eu-central-2">Europe -> Europe (Zurich) -> eu-central-2</option>
+					<option value="Middle East -> Middle East (Bahrain) -> me-south-1">Middle East -> Middle East (Bahrain) -> me-south-1</option>
+					<option value="Middle East -> Middle East (UAE) -> me-central-1">Middle East -> Middle East (UAE) -> me-central-1</option>
+					<option value="South America -> South America (Sao Paulo) -> sa-east-1">South America -> South America (Sao Paulo) -> sa-east-1</option>
+				</select><br>
+	
+				<label for="os">Operating System:</label>
+				<select id="os" name="os">
+					<option value="Linux">Linux</option>
+					<option value="Linux with SQL Enterprise">Linux with SQL Enterprise</option>
+					<option value="Linux with SQL Standard">Linux with SQL Standard</option>
+					<option value="Linux with SQl Web">Linux with SQl Web</option>
+					<option value="RHEL">RHEL</option>
+					<option value="Red Hat Enterprise Linux with SQL Enterprise">Red Hat Enterprise Linux with SQL Enterprise</option>
+					<option value="Red Hat Enterprise Linux with SQL Standard">Red Hat Enterprise Linux with SQL Standard</option>
+					<option value="Red Hat Enterprise Linux with SQL Web">Red Hat Enterprise Linux with SQL Web</option>
+					<option value="Red Hat Enterprise Linux with HA">Red Hat Enterprise Linux with HA</option>
+					<option value="Red Hat Enterprise Linux with HA and SQL Enterprise">Red Hat Enterprise Linux with HA and SQL Enterprise</option>
+					<option value="Red Hat Enterprise Linux with HA and Standard">Red Hat Enterprise Linux with HA and Standard</option>
+					<option value="SLES">SLES</option>
+					<option value="Windows">Windows</option>
+					<option value="Windows with SQL Enterprise">Windows with SQL Enterprise</option>
+					<option value="Windows with SQL Standard">Windows with SQL Standard</option>
+					<option value="Windows with SQL Web">Windows with SQL Web</option>
+				</select><br>
+	
+
+
+				<button type="submit">Submit</button>
+				<br>
+				<br>
+			</form>
+			<br><br><br>
+
+			  <!--create a table element in HTML with a header row and an empty body-->
+			  <table id="outputTable">
+				<thead>
+				  <tr>
+					<th>Instance Types</th>
+					<th>vCPU</th>
+					<th>Memory</th>
+					<th>Storage</th>
+					<th>Region</th>
+					<th>Operating System</th>
+				  </tr>
+				</thead>
+				<tbody></tbody>
+			  </table>
+
+			  <!--Add an event listener to the submit button that prevents the default form submission behavior and calls a JavaScript function to handle the form submission-->
+			  <script>
+				document.getElementById("myForm").addEventListener("submit", function(event) {
+				  event.preventDefault();
+				  handleFormSubmission();
+				});
+			  </script>
+
+			  
+			  <!--Inside the handleFormSubmission() function, retrieve the values of the input fields and create a new row for the table with the values-->
+			  <script>
+				function handleFormSubmission() {
+				  const instanceType = document.getElementById("instanceType").value;
+				  const vcpu = document.getElementById("vcpu").value;
+				  const memory = document.getElementById("memory").value;
+				  const storage = document.getElementById("storage").value;
+				  const region = document.getElementById("region").value;
+				  const os = document.getElementById("os").value;
+				  
+				  const outputTable = document.getElementById("outputTable");
+				  const newRow = outputTable.insertRow(-1);
+				  const instanceTypeCell = newRow.insertCell(0);
+				  const vcpuCell = newRow.insertCell(1);
+				  const memoryCell = newRow.insertCell(2);
+				  const storageCell = newRow.insertCell(3);
+				  const regionCell = newRow.insertCell(4);
+				  const osCell = newRow.insertCell(5);
+				  
+				  instanceTypeCell.innerHTML = instanceType;
+				  vcpuCell.innerHTML = vcpu;
+				  memoryCell.innerHTML = memory;
+				  storageCell.innerHTML = storage;
+				  regionCell.innerHTML = region;
+				  osCell.innerHTML = os;
+				}
+			  </script>
+
+			  <!--style the table as needed using CSS-->
+			  <style>
+				table {
+				  width: 100%;
+				  border-collapse: collapse;
+				}
+				
+				th, td {
+				  border: 1px solid black;
+				  padding: 8px;
+				  text-align: left;
+				}
+				
+				th {
+				  background-color: #ccc;
+				}
+			  </style>
+			  
+
+		</section>
+	</main>
+	
+	<footer>
+		<p>&copy; 2023 Cloud Provider Advisor. All rights reserved.</p>
+	</footer>
+	
+</body>
+</html>
