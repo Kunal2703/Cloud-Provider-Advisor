@@ -1,6 +1,12 @@
 import boto3
 import json
+import mysql.connector
+mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa')
+mycursor=mydb.cursor()
+
 pricing = boto3.client('pricing')
+
+
 
 def ec2_instance_types(region_code):
 
@@ -72,10 +78,39 @@ def getInstancePrice(instance_name, regionCode):
         
         return instanceFamily, price
 
+def insertIntoTable(instance_dict):
+    query="delete from awsprice"
+    mycursor.execute(query)
+    for region in instance_dict.keys():
+        for i in instance_dict[region]:
+            instance=instance_dict[region][i]
+            instance_name=i
+            try:
+                price=instance['Price']
+            except:
+                continue
+            vcpu=instance['VCpuInfo']['DefaultVCpus']
+            memory=instance['MemoryInfo']['SizeInMiB']/1024
+            family=instance['InstanceFamily']
+            query="insert into awsprice values(%s, %s, %s, %s, %s, %s)"
+            if 'InstanceStorageInfo' in instance.keys():
+                storage=instance['InstanceStorageInfo']['TotalSizeInGB']
+            else:
+                storage='EBS only'
+
+            query="insert into awsprice values(%s, %s, %s, %s, %s, %s)"
+            tup=(instance_name, price, vcpu, memory, storage, family)
+            mycursor.execute(query,tup)
+            mydb.commit()
+
+
 instance_dict=dict()
 
 instance_dict['ap-south-1']=ec2_instance_types(region_code='ap-south-1')
 
+insertIntoTable(instance_dict)
+
+'''
 
 for i in instance_dict['ap-south-1']:
     instance=instance_dict['ap-south-1'][i]
@@ -90,3 +125,4 @@ for i in instance_dict['ap-south-1']:
         except KeyError:
             continue
 
+'''
