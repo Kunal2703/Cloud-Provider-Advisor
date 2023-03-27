@@ -1,7 +1,7 @@
 import boto3
 import json
 import mysql.connector
-mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa')
+mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa') #creating mysql connection
 mycursor=mydb.cursor()
 
 pricing = boto3.client('pricing')
