@@ -3,6 +3,12 @@ from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.billing import BillingManagementClient
 import requests
 import json
+import mysql.connector
+mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa')
+mycursor=mydb.cursor()
+query="delete from azureprice"
+mycursor.execute(query)
+mydb.commit()
 
 
 compute_client = ComputeManagementClient(
@@ -18,7 +24,7 @@ def azure_instance_types(location):
     instance_types= compute_client.virtual_machine_sizes.list(location)
     instances=dict()
     for i, r in enumerate(instance_types):
-        name=r.name.strip()
+        instance_name=r.name.strip()
         if "D" in r.name or "B" in r.name:
             family="General Purpose"
         elif "F" in r.name:
@@ -31,11 +37,15 @@ def azure_instance_types(location):
             family="GPU"
         elif "H" in r.name:
             family="HPC"
-        price1, price2 =getAzureInstancePrice(name,location)
-        if price1==0 and price2==0:
+        LinuxPrice, WindowsPrice =getAzureInstancePrice(instance_name,location)
+        if LinuxPrice==0 and WindowsPrice==0:
             continue
-        instances[name]={"LinuxPrice":price1,"WindowsPrice":price2,"VCpuInfo":r.number_of_cores, "MemoryInfo":r.memory_in_mb/1024, "InstanceStorageInfo":r.resource_disk_size_in_mb/1024, "instanceFamily": family}
-        print(name+" ",instances[name])
+        instances[instance_name]={"LinuxPrice":LinuxPrice,"WindowsPrice":WindowsPrice,"VCpuInfo":r.number_of_cores, "MemoryInfo":r.memory_in_mb/1024, "InstanceStorageInfo":r.resource_disk_size_in_mb/1024, "instanceFamily": family}
+        #query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s)"
+        #tup=(instance_name,LinuxPrice,WindowsPrice,r.number_of_cores,r.memory_in_mb,r.resource_disk_size_in_mb,family)
+        #mycursor.execute(query,tup)
+        #print(instance_name+" ",instances[instance_name])
+        #mydb.commit()
     return instances
 
 
@@ -74,8 +84,28 @@ def getAzureInstancePrice(instance_name,location):
         return 0,0
 
 
+def insertIntoTable(instance_dict):
+    for region in instance_dict.keys():
+        instances=instance_dict[region]
+        for i in instances:
+            instance_name=i
+            LinuxPrice=instances[i]["LinuxPrice"]
+            WindowsPrice=instances[i]["WindowsPrice"]
+            vcpu=instances[i]["VCpuInfo"]
+            memory=instances[i]["MemoryInfo"]
+            storage=instances[i]["InstanceStorageInfo"]
+            family=instances[i]["instanceFamily"]
+            query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s)"
+            tup=(instance_name,LinuxPrice,WindowsPrice,vcpu,memory,storage,family)
+            mycursor.execute(query,tup)
+    
+    mydb.commit()
+
+
 # Get the prices for each instance type
 instance_dict=dict()
 
 instance_dict['westus2']=azure_instance_types('westus2')
-print(instance_dict["westus2"])
+
+insertIntoTable(instance_dict)
+#print(instance_dict["westus2"])
