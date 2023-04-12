@@ -1,11 +1,11 @@
 import boto3
 import json
 import mysql.connector
-mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa') #creating mysql connection
+mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa')
 mycursor=mydb.cursor()
 
 pricing = boto3.client('pricing')
-
+ec2=boto3.client('ec2')
 
 
 def ec2_instance_types(region_code):
@@ -98,17 +98,24 @@ def insertIntoTable(instance_dict):
             else:
                 storage='EBS only'
 
-            query="insert into awsprice values(%s, %s, %s, %s, %s, %s)"
-            tup=(instance_name, price, vcpu, memory, storage, family)
+            query="insert into awsprice values(%s, %s, %s, %s, %s, %s, %s)"
+            tup=(instance_name, price, vcpu, memory, storage, family, region)
             mycursor.execute(query,tup)
             mydb.commit()
 
 
+region_list= [region['RegionName']for region in ec2.describe_regions(AllRegions=True)['Regions']]
 instance_dict=dict()
 
-instance_dict['ap-south-1']=ec2_instance_types(region_code='ap-south-1')
+for region in region_list:
+    instance_dict[region]=ec2_instance_types(region_code=region)
 
+
+#instance_dict['ap-south-2']=ec2_instance_types(region_code='ap-south-2')
 insertIntoTable(instance_dict)
+
+
+
 
 '''
 
