@@ -7,8 +7,10 @@ query="use cpa"
 mycursor.execute(query)
 mydb.commit()
 
-query="create table awsPrice(Instance_name varchar(20), Instance_Price float, vCPU int, Memory int, Storage varchar(20), Instance_Family varchar(40), Region varchar(20))"
+query="create table awsPrice(Instance_name varchar(20), Linux_Price float, Windows_Price float, vCPU int, Memory int, Storage varchar(20), Instance_Family varchar(40), Region varchar(20))"
 mycursor.execute(query)
 query="create table azurePrice(Instance_name varchar(40), Linux_Price float, Windows_Price float, vCPU int, Memory int, Storage int, Instance_Family varchar(40), Region varchar(20))"
+mycursor.execute(query)
+query="create table gcpPrice(Instance_name varchar(40), Instance_Price float, vCPU int, Memory int, Instance_Family varchar(40), Region varchar(20))"
 mycursor.execute(query)
 mydb.commit()
