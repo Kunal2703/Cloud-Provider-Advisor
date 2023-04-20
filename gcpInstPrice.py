@@ -16,7 +16,14 @@ def getPrice(instanceName, regionCode):
 
     response = requests.post('https://pricing.api.infracost.io/graphql', headers=headers, json=json_data)
     response=response.json()
-    price=response['data']['products'][0]['prices'][0]['USD']
+    try:
+        price=response['data']['products'][0]['prices'][0]['USD']
+        price=float(price)
+        return price
+
+    except IndexError:
+        print(instanceName, regionCode)    
+        return "error"
     price=float(price)
     return price
 
@@ -60,6 +67,7 @@ def getRegions():
     regionList=list()
     for region in regionListPager:
         regionList.append(region.name)
+    regionList.remove('asia-northeast1')
     return regionList
 
 def insertIntoTable(instance_dict):
@@ -88,3 +96,7 @@ for region in regionList:
 
 #instanceDict['us-west1']=getInstance('us-west1')
 insertIntoTable(instanceDict)
+
+
+
+
