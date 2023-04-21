@@ -7,7 +7,7 @@ mycursor=mydb.cursor()
 
 def getPrice(instanceName, regionCode):
     headers = {
-        'X-Api-Key': 'ico-lUrGxRfXCouDeiJsEdvr4rjrfG0Uo4tI',    
+        'X-Api-Key': 'ico-GnVxKvhdSo033YEthR0CVH6GTlbiwe9p',    
     }
 
     json_data = {
@@ -21,11 +21,10 @@ def getPrice(instanceName, regionCode):
         price=float(price)
         return price
 
-    except IndexError:
-        print(instanceName, regionCode)    
-        return "error"
-    price=float(price)
-    return price
+    except:
+        #print(instanceName, regionCode, response)    
+        return 0
+    
 
 
 def getInstance(regionCode):
@@ -39,11 +38,15 @@ def getInstance(regionCode):
     for i in machine_list:
         
         instanceName=i.name
-        instances[instanceName]=dict()
         instancePrice=getPrice(instanceName,regionCode)
-        instances[instanceName]['price']=instancePrice
-        instances[instanceName]['vCPU']=i.guest_cpus
-        instances[instanceName]['memory']=i.memory_mb/1024
+        if instancePrice==0:
+            continue
+        else:
+            instances[instanceName]=dict()
+            instancePrice=getPrice(instanceName,regionCode)
+            instances[instanceName]['price']=instancePrice
+            instances[instanceName]['vCPU']=i.guest_cpus
+            instances[instanceName]['memory']=i.memory_mb/1024
        
 
         if "e2" in instanceName or "n2" in instanceName or "t2" in instanceName or "n1" in instanceName or "f1" in instanceName or "g1" in instanceName:
@@ -67,7 +70,6 @@ def getRegions():
     regionList=list()
     for region in regionListPager:
         regionList.append(region.name)
-    regionList.remove('asia-northeast1')
     return regionList
 
 def insertIntoTable(instance_dict):
@@ -96,7 +98,3 @@ for region in regionList:
 
 #instanceDict['us-west1']=getInstance('us-west1')
 insertIntoTable(instanceDict)
-
-
-
-
