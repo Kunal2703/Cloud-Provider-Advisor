@@ -209,7 +209,7 @@ nav ul li a {
     position: absolute;
     top: 50%;
     left: 0;
-    transform: translateX(-50%);
+    transform: translateX(-25%);
     font-size: 20px;  /*-------------*/
     font-weight: 600px;
     pointer-events: none;
