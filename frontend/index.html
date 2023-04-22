@@ -25,7 +25,7 @@
 			<h2>Get the Lowest Price for Your Cloud Instance</h2>
 			<form id="myForm">
 
-				<label for="instanceType">Instance Type:</label>
+				<label for="instanceType">Instance Name:</label>
 				<select name="instanceType" id="instanceType">
 					<option value="General Purpose">General Purpose</option>
 					<option value="Compute Optimized">Compute Optimized</option>
@@ -39,6 +39,7 @@
 				<input type="number" id="vcpu" name="cpu" required><br>
 -->
 				<select name="vcpu" id="vcpu">
+					<option value="all">All</option>
 					<option value="one">1</option>
 					<option value="two">2</option>
 					<option value="four">4</option>
@@ -234,12 +235,21 @@
 			  <table id="outputTable">
 				<thead>
 				  <tr>
+					<!--
 					<th>Instance Types</th>
 					<th>vCPU</th>
 					<th>Memory</th>
 					<th>Storage</th>
 					<th>Region</th>
 					<th>Operating System</th>
+					-->
+					<th>Instance Name</th>
+					<th>vCPU</th>
+					<th>Memory</th>
+					<th>Storage</th>
+					<th>Price</th>
+					<th>Region</th>
+					<th>Provider</th>
 				  </tr>
 				</thead>
 				<tbody></tbody>
@@ -263,7 +273,7 @@
 				  const memory = document.getElementById("memory").value;
 				  const storage = document.getElementById("storage").value;
 				  const region = document.getElementById("region").value;
-				  const os = document.getElementById("os").value;
+				  //const os = document.getElementById("os").value;
 				  
 				  const outputTable = document.getElementById("outputTable");
 				  const newRow = outputTable.insertRow(-1);
@@ -272,14 +282,14 @@
 				  const memoryCell = newRow.insertCell(2);
 				  const storageCell = newRow.insertCell(3);
 				  const regionCell = newRow.insertCell(4);
-				  const osCell = newRow.insertCell(5);
+				  //const osCell = newRow.insertCell(5);
 				  
 				  instanceTypeCell.innerHTML = instanceType;
 				  vcpuCell.innerHTML = vcpu;
 				  memoryCell.innerHTML = memory;
 				  storageCell.innerHTML = storage;
 				  regionCell.innerHTML = region;
-				  osCell.innerHTML = os;
+				  //osCell.innerHTML = os;
 				}
 			  </script>
 
