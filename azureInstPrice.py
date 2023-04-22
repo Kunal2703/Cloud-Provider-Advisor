@@ -1,6 +1,7 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.compute import ComputeManagementClient
-from azure.mgmt.billing import BillingManagementClient
+from azure.mgmt.subscription import SubscriptionClient
+
 import requests
 import json
 import mysql.connector
@@ -16,16 +17,17 @@ compute_client = ComputeManagementClient(
     subscription_id='54a5ea51-c07c-4503-9757-fd6e935b14e4'
 )
 
-billing_client= BillingManagementClient(
-    credential=DefaultAzureCredential(), 
+subs_client= SubscriptionClient(
+    credential=DefaultAzureCredential(),
     subscription_id='54a5ea51-c07c-4503-9757-fd6e935b14e4'
 )
+
 def azure_instance_types(location):
     instance_types= compute_client.virtual_machine_sizes.list(location)
     instances=dict()
     for i, r in enumerate(instance_types):
         instance_name=r.name.strip()
-        if "D" in r.name or "B" in r.name:
+        if "D" in r.name or "B" in r.name or "A" in r.name:
             family="General Purpose"
         elif "F" in r.name:
             family="Compute Optimized"
@@ -40,17 +42,19 @@ def azure_instance_types(location):
         LinuxPrice, WindowsPrice =getAzureInstancePrice(instance_name,location)
         if LinuxPrice==0 and WindowsPrice==0:
             continue
-        instances[instance_name]={"LinuxPrice":LinuxPrice,"WindowsPrice":WindowsPrice,"VCpuInfo":r.number_of_cores, "MemoryInfo":r.memory_in_mb/1024, "InstanceStorageInfo":r.resource_disk_size_in_mb/1024, "instanceFamily": family}
-        #query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s)"
-        #tup=(instance_name,LinuxPrice,WindowsPrice,r.number_of_cores,r.memory_in_mb,r.resource_disk_size_in_mb,family)
-        #mycursor.execute(query,tup)
-        #print(instance_name+" ",instances[instance_name])
-        #mydb.commit()
+        try:
+            instances[instance_name]={"LinuxPrice":LinuxPrice,"WindowsPrice":WindowsPrice,"VCpuInfo":r.number_of_cores, "MemoryInfo":r.memory_in_mb/1024, "InstanceStorageInfo":r.resource_disk_size_in_mb/1024, "instanceFamily": family}
+        except:
+            print(instance_name,"is causing error")
+        query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s,%s)"
+        tup=(instance_name,LinuxPrice,WindowsPrice,r.number_of_cores,r.memory_in_mb/1024,r.resource_disk_size_in_mb/1024,family, location)
+        mycursor.execute(query,tup)
+        print(instance_name+" ",instances[instance_name])
+        mydb.commit()
     return instances
 
 
 def getAzureInstancePrice(instance_name,location):
-    #api_url= "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview"
     api_url="https://prices.azure.com/api/retail/prices"
     query = "armRegionName eq '"+location+"' and armSkuName eq '"+instance_name+"' and priceType eq 'Consumption'"
     response = requests.get(api_url, params={'$filter': query})
@@ -104,8 +108,10 @@ def insertIntoTable(instance_dict):
 
 # Get the prices for each instance type
 instance_dict=dict()
+region_list=['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus', 'northeurope', 'westeurope', 'eastasia', 'southeastasia', 'japaneast', 'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral', 'brazilsouth', 'southindia', 'centralindia', 'westindia', 'canadacentral', 'canadaeast', 'westus2', 'westcentralus', 'uksouth', 'ukwest', 'koreacentral', 'koreasouth', 'francecentral', 'southafricanorth', 'uaenorth', 'switzerlandnorth', 'germanywestcentral', 'norwayeast', 'jioindiawest', 'westus3', 'swedencentral', 'qatarcentral', 'polandcentral']
 
-instance_dict['westus2']=azure_instance_types('westus2')
+for region in region_list:
+    instance_dict[region]=azure_instance_types(region)
 
-insertIntoTable(instance_dict)
+#insertIntoTable(instance_dict)
 #print(instance_dict["westus2"])
