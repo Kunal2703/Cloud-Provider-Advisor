@@ -13,4 +13,8 @@ loginlink.addEventListener('click', ()=>{
   if (userIsInvalid) {
     messageBox.innerHTML = 'Invalid user. Please try again.'
   }
+  else{
+    // User is valid, display success message
+    messageBox.innerHTML = 'Login successful!'
+  }
 })
