@@ -20,12 +20,8 @@ def getPrice(instanceName, regionCode):
         price=response['data']['products'][0]['prices'][0]['USD']
         price=float(price)
         return price
-
     except IndexError:
-        print(instanceName, regionCode)    
-        return "error"
-    price=float(price)
-    return price
+        print(regionCode)
 
 
 def getInstance(regionCode):

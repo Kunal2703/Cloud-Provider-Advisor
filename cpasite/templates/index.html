@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Cloud Provider Advisor</title>
-	<link href="img/cloud-computing_318-493798.avif" rel="icon">
-	<link rel="stylesheet" href="style.css">
+	<link href="static/css/img/cloud-computing_318-493798.avif" rel="icon">
+	<link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
 	<header>
@@ -14,7 +14,7 @@
 				<!--<li><a href="#">Pricing</a></li>-->
 				<li><a href="#">About Us</a></li>
 				<li><a href="#">Contact</a></li>
-				<li><a href="login.html">Login/Sign Up</a></li>
+				<li><a href="/login">Login/Sign Up</a></li>
 				<!--<li><a href="#">Sign Up</a></li>-->
 			</ul>
 		</nav>
@@ -23,8 +23,8 @@
 	<main>
 		<section>
 			<h2>Get the Lowest Price for Your Cloud Instance</h2>
-			<form id="myForm">
-
+			<form action={%url 'index'%} method='POST'>
+				{% csrf_token %}
 				<label for="instanceType">Instance Type:</label>
 				<select name="instanceType" id="instanceType">
 					<option value="General Purpose">General Purpose</option>
@@ -39,35 +39,35 @@
 				<input type="number" id="vcpu" name="cpu" required><br>
 -->
 				<select name="vcpu" id="vcpu">
-					<option value="one">1</option>
-					<option value="two">2</option>
-					<option value="four">4</option>
-					<option value="eight">8</option>
-					<option value="twelve">12</option>
-					<option value="sixteen">16</option>
-					<option value="twenty-two">22</option>
-					<option value="twenty-four">24</option>
-					<option value="thirty">30</option>
-					<option value="thirty-two">32</option>
-					<option value="thirty-six">36</option>
-					<option value="forty">40</option>
-					<option value="forty-four">44</option>
-					<option value="forty-eight">48</option>
-					<option value="fifty-six">56</option>
-					<option value="sixty">60</option>
-					<option value="sixty-four">64</option>
-					<option value="seventy-two">72</option>
-					<option value="eighty">80</option>
-					<option value="ninety-six">96</option>
-					<option value="one-hundred-twelve">112</option>
-					<option value="one-hundred-twenty-eight">128</option>
-					<option value="one-hundred-sixty">160</option>
-					<option value="one-hundred-seventy-six">176</option>
-					<option value="one-hundred-ninety-two">192</option>
-					<option value="two-hundred-eight">208</option>
-					<option value="two-hundred-twenty-four">224</option>
-					<option value="four-hundred-sixteen">416</option>
-					<option value="four-hundred-forty-eight">448</option>
+					<option value=1>1</option>
+					<option value=2>2</option>
+					<option value=4>4</option>
+					<option value=8>8</option>
+					<option value=12>12</option>
+					<option value=16>16</option>
+					<option value=22>22</option>
+					<option value=24>24</option>
+					<option value=30>30</option>
+					<option value=32>32</option>
+					<option value=36>36</option>
+					<option value=40>40</option>
+					<option value=44>44</option>
+					<option value=48>48</option>
+					<option value=56>56</option>
+					<option value=60>60</option>
+					<option value=64>64</option>
+					<option value=72>72</option>
+					<option value=80>80</option>
+					<option value=96>96</option>
+					<option value=112>112</option>
+					<option value=128>128</option>
+					<option value=160>160</option>
+					<option value=176>176</option>
+					<option value=192>192</option>
+					<option value=208>208</option>
+					<option value=224>224</option>
+					<option value=416>416</option>
+					<option value=448>448</option>
 
 				</select>
 
@@ -97,8 +97,8 @@
 <!--==================AWS Region====================================-->                
 				<label for="region">Region:</label>
 				<label for="region">AWS</label>
-				<select name="region" id="region">
-					<option value="Nome">None</option>
+				<select name="awsregion">
+					<option value="None">None</option>
 					<option value="ap-south-2">ap-south-2</option>
 					<option value="ap-south-1">ap-south-1</option>
 					<option value="eu-south-1">eu-south-1</option>
@@ -130,8 +130,8 @@
 
 <!--==================GCP Region====================================-->                
 				<label for="region">GCP</label>
-				<select name="region" id="region">
-					<option value="Nome">None</option>
+				<select name="gcpregion">
+					<option value="None">None</option>
 					<option value="asia-east1">asia-east1</option>
 					<option value="asia-east2">asia-east2</option>
 					<option value="asia-northeast1">asia-northeast1</option>
@@ -173,8 +173,8 @@
 
 <!--==================Azure Region====================================-->                
 				<label for="region">Azure</label>
-				<select name="region" id="region">
-					<option value="Nome">None</option>
+				<select name="azregion">
+					<option value="None">None</option>
 					<option value="eastus">eastus</option>
 					<option value="eastus2">eastus2</option>
 					<option value="westus">westus</option>
@@ -234,16 +234,34 @@
 			  <table id="outputTable">
 				<thead>
 				  <tr>
-					<th>Instance Types</th>
+					<th>Instance Name</th>
 					<th>vCPU</th>
 					<th>Memory</th>
-					<th>Storage</th>
+					<th>Storage in GB</th>
 					<th>Region</th>
-					<th>Operating System</th>
+					<th>Price</th>
+					<th>Provider</th>
 				  </tr>
 				</thead>
+				{%for instanceprice in InstancePrices %}
+				<tr>
+					<td>{{ instanceprice.instance_name }}</td>
+					<td>{{ instanceprice.vcpu }}</td>
+					<td>{{ instanceprice.memory }}</td>
+					<td>{{ instanceprice.storage }}</td>
+					<td>{{ instanceprice.region }}</td>
+					{% if os == 'Linux' %}
+						<td>{{ instanceprice.linux_price }}</td>
+					{% else %}
+						<td>{{ instanceprice.windows_price }}</td>
+					{% endif %}
+					<td>{{ instanceprice.provider }}</td>
+    			</tr>
+				{% endfor%}
 				<tbody></tbody>
 			  </table>
+
+
 
 
 			  <!--Add an event listener to the submit button that prevents the default form submission behavior and calls a JavaScript function to handle the form submission-->
@@ -254,6 +272,7 @@
 				});
 			  </script>
 
+			 
 			  
 			  <!--Inside the handleFormSubmission() function, retrieve the values of the input fields and create a new row for the table with the values-->
 			  <script>
