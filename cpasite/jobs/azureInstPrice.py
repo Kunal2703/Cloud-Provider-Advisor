@@ -29,17 +29,15 @@ def azure_instance_types(location):
     for i, r in enumerate(instance_types):
         instance_name=r.name.strip()
         if "D" in r.name or "B" in r.name or "A" in r.name:
-            family="General Purpose"
-        elif "F" in r.name:
-            family="Compute Optimized"
+            family="General purpose"
+        elif "F" in r.name or "H" in r.name:
+            family="Compute optimized"
         elif "E" in r.name or "M" in r.name or "Gs" in r.name:
-            family="Memory Optimized"
+            family="Memory optimized"
         elif "L" in r.name:
-            family="Storage Optimized"
+            family="Storage optimized"
         elif "N" in r.name:
-            family="GPU"
-        elif "H" in r.name:
-            family="HPC"
+            family="GPU instance"
         LinuxPrice, WindowsPrice =getAzureInstancePrice(instance_name,location)
         if LinuxPrice==0 and WindowsPrice==0:
             continue

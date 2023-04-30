@@ -13,7 +13,7 @@ class Allinstanceprice(models.Model):
     linux_price = models.FloatField(db_column='Linux_Price', blank=True, null=True)  # Field name made lowercase.
     windows_price = models.FloatField(db_column='Windows_Price', blank=True, null=True)  # Field name made lowercase.
     vcpu = models.IntegerField(db_column='vCPU', blank=True, null=True)  # Field name made lowercase.
-    memory = models.CharField(db_column='Memory', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    memory = models.FloatField(blank=True, null=True)
     storage = models.CharField(db_column='Storage', max_length=20, blank=True, null=True)  # Field name made lowercase.
     instance_family = models.CharField(db_column='Instance_Family', max_length=40, blank=True, null=True)  # Field name made lowercase.
     region = models.CharField(max_length=40, blank=True, null=True)
@@ -23,6 +23,20 @@ class Allinstanceprice(models.Model):
         managed = False
         db_table = 'allinstanceprice'
 
+class Allinstanceprice1(models.Model):
+    instance_name = models.CharField(db_column='Instance_name', max_length=40, blank=True, primary_key=True)  # Field name made lowercase.
+    linux_price = models.FloatField(db_column='Linux_Price', blank=True, null=True)  # Field name made lowercase.
+    windows_price = models.FloatField(db_column='Windows_Price', blank=True, null=True)  # Field name made lowercase.
+    vcpu = models.IntegerField(db_column='vCPU', blank=True, null=True)  # Field name made lowercase.
+    memory = models.FloatField(blank=True, null=True)
+    storage = models.CharField(db_column='Storage', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    instance_family = models.CharField(db_column='Instance_Family', max_length=40, blank=True, null=True)  # Field name made lowercase.
+    region = models.CharField(db_column='Region', max_length=40, blank=True, null=True)  # Field name made lowercase.
+    provider = models.CharField(db_column='Provider', max_length=20, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'allinstanceprice1'
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)

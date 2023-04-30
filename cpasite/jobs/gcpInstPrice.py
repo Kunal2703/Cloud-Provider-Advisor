@@ -50,13 +50,13 @@ def getInstance(regionCode):
        
 
         if "e2" in instanceName or "n2" in instanceName or "t2" in instanceName or "n1" in instanceName or "f1" in instanceName or "g1" in instanceName:
-            family="General Purpose"
+            family="General purpose"
         elif "c2" in instanceName:
-            family="Compute Optimized"
+            family="Compute optimized"
         elif "m1" in instanceName or "m2" in instanceName or "m3" in instanceName:
-            family="Memory Optimized"
+            family="Memory optimized"
         elif "a2" in instanceName or "g2" in instanceName:
-            family="Accelerator Optimized" 
+            family="GPU instance" 
         
         instances[instanceName]['instanceFamily']=family
         

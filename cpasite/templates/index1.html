@@ -3,8 +3,6 @@
 <head>
 	<title>Cloud Provider Advisor</title>
 	<link href="static/css/img/cloud-computing_318-493798.avif" rel="icon">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
@@ -12,23 +10,24 @@
 		<h1>Cloud Provider Advisor</h1>
 		<nav>
 			<ul>
-				<li><a href="/about">About Us</a></li>
-				<li><a href="/signout">Signout</a></li>
+				<li><a href="home.html">Home</a></li>
+				<!--<li><a href="#">Pricing</a></li>-->
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Contact</a></li>
+				<li><a href="/login">Login/Sign Up</a></li>
+				<!--<li><a href="#">Sign Up</a></li>-->
 			</ul>
 		</nav>
-		
 	</header>
-
 	
 	<main>
 		<section>
-			<h2>Compare Compute Instances</h2>
-			<form method='POST' id="task-form">
+			<h2>Get the Lowest Price for Your Cloud Instance</h2>
+			<form action={%url 'index'%} method='POST'>
 				{% csrf_token %}
 				<label for="instanceType">Instance Type:</label>
 				<select name="instanceType" id="instanceType">
 					<option value="General Purpose">General Purpose</option>
-					<!--<option value="Micro Instances">Micro Instances</option>-->
 					<option value="Compute Optimized">Compute Optimized</option>
 					<option value="Memory Optimized">Memory Optimized</option>
 					<option value="GPU Instance">GPU Instance</option>
@@ -271,23 +270,10 @@
 
 
 			  <!--Add an event listener to the submit button that prevents the default form submission behavior and calls a JavaScript function to handle the form submission-->
-			  <script type="text/javascript">
-				$(document).on('submit', '#task-form', function(event){
-					event.preventDefault();
-					$.ajax({
-						type:'POST',
-						url:'{% url "index" %}',
-						data:
-						{
-							task:$("#task").val(),
-							csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-						},
-						success:function(){
-							const outputTable = document.getElementById("outputTable");
-							outputTable.innerHTML="";
-							handleFormSubmission();
-						}
-					})
+			  <script>
+				document.getElementById("myForm").addEventListener("submit", function(event) {
+				  event.preventDefault();
+				  handleFormSubmission();
 				});
 			  </script>
 
@@ -295,7 +281,7 @@
 			  
 			  <!--Inside the handleFormSubmission() function, retrieve the values of the input fields and create a new row for the table with the values-->
 			  <script>
-				function handleFormSubmission() {	
+				function handleFormSubmission() {
 				  const instanceType = document.getElementById("instanceType").value;
 				  const vcpu = document.getElementById("vcpu").value;
 				  const memory = document.getElementById("memory").value;
@@ -403,4 +389,7 @@
 	
 </body>
 </html>
+
+
+
 

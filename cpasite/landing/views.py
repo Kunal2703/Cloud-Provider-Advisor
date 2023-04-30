@@ -1,8 +1,9 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from django.template import loader
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import Allinstanceprice
 from django.db.models import Q
 
@@ -12,7 +13,7 @@ def land(request):
     return render(request,'home.html')
 
 def about(request):
-    return HttpResponse("This is about page")
+    return render(request, 'about.html')
 
 def contact(request):
     return HttpResponse("This is contact page")
@@ -56,21 +57,22 @@ def signin(request):
         user=authenticate(username=username, password=passwd)
         if user is not None:
             login(request, user)
-            messages.success(request, "Successfully Logged In")
-            return redirect("index")
+            #messages.success(request, "Successfully Logged In")
+            return HttpResponseRedirect("index")
         else:
             messages.error(request, "Invalid credentials! Please try again")
-            return redirect("land")
+            return HttpResponse("land")
     else:
         return HttpResponse("404 - Page Not Found")
     
 def signout(request):
     logout(request)
     messages.success(request, "Successfully logged out")
-    return redirect("home")
+    return redirect("land")
 
-
+@login_required(login_url="/")
 def index(request):
+
     if request.method=='POST':
         instanceType=request.POST.get('instanceType')
         vcpu=request.POST.get("vcpu")
@@ -99,7 +101,7 @@ def index(request):
         }
         return HttpResponse(template.render(context, request))
         
-        #return render(request, "index.html")
+        #return render(request, "index.html", context)
     
     else:
         return render(request, "index.html")
