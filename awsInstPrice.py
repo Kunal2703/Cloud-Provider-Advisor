@@ -99,10 +99,16 @@ def insertIntoTable(instance_dict):
             mydb.commit()
 
 
-region_list= [region['RegionName']for region in ec2.describe_regions(AllRegions=True)['Regions']]
-instance_dict=dict()
+def main():
+    print('awsInstPrice is executing')
 
-for region in region_list:
-    instance_dict[region]=ec2_instance_types(region_code=region)
+    region_list= [region['RegionName']for region in ec2.describe_regions(AllRegions=True)['Regions']]
+    instance_dict=dict()
 
-insertIntoTable(instance_dict)
+    for region in region_list:
+        instance_dict[region]=ec2_instance_types(region_code=region)
+
+    insertIntoTable(instance_dict)
+
+if __name__=='__main__':
+    main()
