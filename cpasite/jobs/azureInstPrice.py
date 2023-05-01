@@ -8,9 +8,7 @@ import json
 import mysql.connector
 mydb = mysql.connector.connect(host = "localhost", user = "root", passwd = '1234', database='cpa')
 mycursor=mydb.cursor()
-query="delete from azureprice"
-mycursor.execute(query)
-mydb.commit()
+
 
 
 compute_client = ComputeManagementClient(
@@ -45,11 +43,11 @@ def azure_instance_types(location):
             instances[instance_name]={"LinuxPrice":LinuxPrice,"WindowsPrice":WindowsPrice,"VCpuInfo":r.number_of_cores, "MemoryInfo":r.memory_in_mb/1024, "InstanceStorageInfo":r.resource_disk_size_in_mb/1024, "instanceFamily": family}
         except:
             print(instance_name,"is causing error")
-        query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s,%s)"
-        tup=(instance_name,LinuxPrice,WindowsPrice,r.number_of_cores,r.memory_in_mb/1024,r.resource_disk_size_in_mb/1024,family, location)
-        mycursor.execute(query,tup)
-        print(instance_name+" ",instances[instance_name])
-        mydb.commit()
+        #query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s,%s)"
+        #tup=(instance_name,LinuxPrice,WindowsPrice,r.number_of_cores,r.memory_in_mb/1024,r.resource_disk_size_in_mb/1024,family, location)
+        #mycursor.execute(query,tup)
+        #print(instance_name+" ",instances[instance_name])
+        #mydb.commit()
     return instances
 
 
@@ -93,6 +91,10 @@ def getAzureInstancePrice(instance_name,location):
 
 
 def insertIntoTable(instance_dict):
+    query="delete from azureprice"
+    mycursor.execute(query)
+    mydb.commit()   
+
     for region in instance_dict.keys():
         instances=instance_dict[region]
         for i in instances:
@@ -103,8 +105,8 @@ def insertIntoTable(instance_dict):
             memory=instances[i]["MemoryInfo"]
             storage=instances[i]["InstanceStorageInfo"]
             family=instances[i]["instanceFamily"]
-            query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s)"
-            tup=(instance_name,LinuxPrice,WindowsPrice,vcpu,memory,storage,family)
+            query="insert into azurePrice values(%s,%s,%s,%s,%s,%s,%s,%s)"
+            tup=(instance_name,LinuxPrice,WindowsPrice,vcpu,memory,storage,family,region)
             mycursor.execute(query,tup)
     
     mydb.commit()
@@ -117,10 +119,9 @@ def main():
     #region_list=['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus', 'northeurope', 'westeurope', 'eastasia', 'southeastasia', 'japaneast', 'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral', 'brazilsouth', 'southindia', 'centralindia', 'westindia', 'canadacentral', 'canadaeast', 'westus2', 'westcentralus', 'uksouth', 'ukwest', 'koreacentral', 'koreasouth', 'francecentral', 'southafricanorth', 'uaenorth', 'switzerlandnorth', 'germanywestcentral', 'jioindiawest', 'westus3']
     for region in region_list:
         instance_dict[region]=azure_instance_types(region)
+    insertIntoTable(instance_dict)
+    mydb.close()
+    print("updated azure")
 
 if __name__=='__main__':
     main()
-
-
-#insertIntoTable(instance_dict)
-#print(instance_dict["westus2"])

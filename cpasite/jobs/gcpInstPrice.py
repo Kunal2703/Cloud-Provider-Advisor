@@ -101,6 +101,8 @@ def main():
 
     #instanceDict['us-west1']=getInstance('us-west1')
     insertIntoTable(instanceDict)
+    mydb.close()
+    print("updated gcp")
 
 if __name__=='__main__':
     main()

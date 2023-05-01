@@ -109,6 +109,8 @@ def main():
         instance_dict[region]=ec2_instance_types(region_code=region)
 
     insertIntoTable(instance_dict)
+    mydb.close()
+    print("updated aws")
 
 if __name__=='__main__':
     main()
