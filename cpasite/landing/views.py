@@ -72,7 +72,8 @@ def signout(request):
 
 @login_required(login_url="/")
 def index(request):
-
+    if not request.user.is_authenticated:
+        return redirect("land")
     if request.method=='POST':
         instanceType=request.POST.get('instanceType')
         vcpu=request.POST.get("vcpu")
