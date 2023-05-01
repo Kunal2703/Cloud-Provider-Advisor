@@ -31,7 +31,7 @@ def job_listener(event):
 
 def start():
     scheduler.add_job(awsjob, 'cron', hour='*/12', name='awsjob')
-    scheduler.add_job(azurejob, 'cron',  hour='*/12', name='azurejob')
+    scheduler.add_job(azurejob, 'cron',  hour='0', name='azurejob')
     scheduler.add_job(gcpjob, 'cron',  hour='*/12', name='gcpjob')
     #scheduler.add_job(updatejob, name='updatejob')
     scheduler.add_listener(job_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)

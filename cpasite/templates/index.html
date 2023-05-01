@@ -40,6 +40,7 @@
 				<input type="number" id="vcpu" name="cpu" required><br>
 -->
 				<select name="vcpu" id="vcpu">
+					<option value='All'>All</option>
 					<option value=1>1</option>
 					<option value=2>2</option>
 					<option value=4>4</option>
@@ -241,7 +242,7 @@
 				<thead>
 				  <tr>
 					<th onclick="sortTable(0)">Instance Name</th>
-					<th>vCPU</th>
+					<th onclick="sortTable(1)">vCPU</th>
 					<th onclick="sortTable(2)">Memory</th>
 					<th>Storage in GB</th>
 					<th>Region</th>

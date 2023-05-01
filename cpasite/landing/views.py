@@ -61,7 +61,7 @@ def signin(request):
             return HttpResponseRedirect("index")
         else:
             messages.error(request, "Invalid credentials! Please try again")
-            return HttpResponse("land")
+            return redirect("land")
     else:
         return HttpResponse("404 - Page Not Found")
     
@@ -90,9 +90,15 @@ def index(request):
         if azRegion!="None":
             regionList.append(azRegion)
         if os_value=="Linux":
-            filteredInstances=allinstancePrices.filter(vcpu=vcpu, instance_family=instanceType, region__in=regionList).order_by('linux_price')
+            if vcpu=='All':
+                filteredInstances=allinstancePrices.filter(instance_family=instanceType, region__in=regionList).order_by('linux_price')[:15]
+            else:
+                filteredInstances=allinstancePrices.filter(vcpu=vcpu, instance_family=instanceType, region__in=regionList).order_by('linux_price')
         else:
-            filteredInstances=allinstancePrices.filter(vcpu=vcpu, instance_family=instanceType, region__in=regionList).order_by('windows_price')
+            if vcpu=='All':
+                filteredInstances=allinstancePrices.filter(instance_family=instanceType, region__in=regionList).order_by('windows_price')[:15]
+            else:
+                filteredInstances=allinstancePrices.filter(vcpu=vcpu, instance_family=instanceType, region__in=regionList).order_by('windows_price')
 
         template = loader.get_template('index.html')
         context = {
