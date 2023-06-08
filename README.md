@@ -18,6 +18,22 @@ The system will have an organized process to retrieve the virtual machine instan
 ### GUI of the application
 <img width="1328" alt="Screenshot 2023-06-08 at 4 37 40 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/d0fa8079-cd9d-4bbc-b8f9-b00b106f688d">
 
+## Landing Page
+<img width="1277" alt="Screenshot 2023-06-08 at 7 19 16 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/89ddad84-66f4-4ab8-81c6-b0b47c2c0224">
+
+## Login Form
+<img width="1557" alt="Screenshot 2023-06-08 at 7 19 55 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/eac03159-a6eb-49ff-b08b-b43f36a29d76">
+
+## Sign Up Form
+
+<img width="1115" alt="Screenshot 2023-06-08 at 7 20 26 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/1d0a6141-c092-473b-a342-d6513112d67d">
+
+## Comparison Page
+<img width="1334" alt="Screenshot 2023-06-08 at 7 20 58 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/a7a3e725-2e3a-4782-a038-a433d7d53fd3">
+
+## Comparison Table
+<img width="1420" alt="Screenshot 2023-06-08 at 7 21 25 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/4f1b3577-4fb4-4bb2-9798-a1aba2dc3321">
+
 ## Important link:
 ### SDK- Software Development Kit is set of tools provided by the developer to a third party which can be used in producing applications using a particular platform.
 <br>
@@ -30,3 +46,4 @@ https://cloud.google.com/python/docs/reference
 ### API- Application Programming Interface is a component or a mechanism that allows applications or software to communicate with each other.
 <br>
 https://learn.microsoft.com/en-us/rest/api/cost-management/retail-%20prices/azure-retail-prices
+
