@@ -11,3 +11,5 @@ With so many options available in the market, it can become difficult to choose 
 
 ## Features
 The system will have an organized process to retrieve the virtual machine instance data from the respective APIs and store it in a database. The data will then be presented to the user via a user-friendly interface. This system will provide searching facilities based on various features such as memory, storage, price, etc.
+
+<img width="1317" alt="Screenshot 2023-06-08 at 4 34 48 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/0d35e147-c619-43f8-aabd-c7a7d108fc96">
