@@ -8,3 +8,6 @@ With so many options available in the market, it can become difficult to choose 
 ### The target beneficiaries of the proposed methodology are small and medium enterprises as they have specific requirements and are constrained in how much they spend to fulfil these requirements and need to avoid paying for extra resources which they do not require.
 
 ### The scope of this project is to make it easier to compare virtual machines offered by different cloud provider like AWS, Microsoft Azure and GCP. The user will specify their requirements of virtual machine based in which a list of appropriate machines will be generated.
+
+## Features
+The system will have an organized process to retrieve the virtual machine instance data from the respective APIs and store it in a database. The data will then be presented to the user via a user-friendly interface. This system will provide searching facilities based on various features such as memory, storage, price, etc.
