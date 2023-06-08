@@ -14,3 +14,6 @@ The system will have an organized process to retrieve the virtual machine instan
 
 ### Structure of the application
 <img width="1317" alt="Screenshot 2023-06-08 at 4 34 48 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/0d35e147-c619-43f8-aabd-c7a7d108fc96">
+
+### GUI of the application
+<img width="1328" alt="Screenshot 2023-06-08 at 4 37 40 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/d0fa8079-cd9d-4bbc-b8f9-b00b106f688d">
