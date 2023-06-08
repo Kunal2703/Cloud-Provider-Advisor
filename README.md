@@ -18,15 +18,14 @@ The system will have an organized process to retrieve the virtual machine instan
 ### GUI of the application
 <img width="1328" alt="Screenshot 2023-06-08 at 4 37 40 PM" src="https://github.com/Kunal2703/Cloud-Provider-Advisor/assets/78562069/d0fa8079-cd9d-4bbc-b8f9-b00b106f688d">
 
-### Important link:
-SDK- Software Development Kit is set of tools provided by the developer to a third party which can be used in producing applications using a particular platform.
+## Important link:
+### SDK- Software Development Kit is set of tools provided by the developer to a third party which can be used in producing applications using a particular platform.
 <br>
 https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html
 <br>
 https://azure.github.io/azure-sdk-for-python/
 <br>
 https://cloud.google.com/python/docs/reference
-<br>
 
 ### API- Application Programming Interface is a component or a mechanism that allows applications or software to communicate with each other.
 <br>
