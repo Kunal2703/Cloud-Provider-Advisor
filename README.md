@@ -22,3 +22,12 @@ The system will have an organized process to retrieve the virtual machine instan
 SDK- Software Development Kit is set of tools provided by the developer to a third party which can be used in producing applications using a particular platform.
 <br>
 https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html
+<br>
+https://azure.github.io/azure-sdk-for-python/
+<br>
+https://cloud.google.com/python/docs/reference
+<br>
+
+### API- Application Programming Interface is a component or a mechanism that allows applications or software to communicate with each other.
+<br>
+https://learn.microsoft.com/en-us/rest/api/cost-management/retail-%20prices/azure-retail-prices
